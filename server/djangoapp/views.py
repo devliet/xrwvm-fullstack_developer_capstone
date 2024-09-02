@@ -87,7 +87,6 @@ def registration(request):
         return JsonResponse(data)
 @csrf_exempt
 def get_cars(request):
-    logging.info("call get cars")
     count = CarMake.objects.filter().count()
     print(count)
     if(count == 0):
