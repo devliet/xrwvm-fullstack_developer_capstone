@@ -29,14 +29,14 @@ SECRET_KEY =\
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
-     "".join(
-         [
-            'https://etiennedevl1-8000',
-            '.theiadockernext-0-labs-prod-theiak8s-4-tor01.',
-            'proxy.cognitiveclass.ai'
-         ]
-     )
+                    'localhost',
+                     "".join(
+                         [
+                            'https://etiennedevl1-8000',
+                            '.theiadockernext-0-labs-prod-theiak8s-4-tor01.',
+                            'proxy.cognitiveclass.ai'
+                         ]
+                     )
 ]
 CSRF_TRUSTED_ORIGINS = [
     "".join(
@@ -114,10 +114,11 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME':
-        "".join([
-                    'django.contrib.auth.password_validation.',
-                    'UserAttributeSimilarityValidator'
-                ]
+        "".join(
+                    [
+                        'django.contrib.auth.password_validation.',
+                        'UserAttributeSimilarityValidator'
+                    ]
                )
     },
     {
