@@ -36,6 +36,7 @@ def login_user(request):
         data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(data)
 
+
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
     # ...
@@ -55,6 +56,7 @@ def logout_request(request):
 # Update the `get_dealerships` render list of dealerships all by default,
 # particular state if state is passed
 
+
 def get_dealerships(request, state="All"):
     if(state == "All"):
         endpoint = "/fetchDealers"
@@ -73,6 +75,7 @@ def get_dealer_details(request, dealer_id):
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
 
+
 def get_dealer_reviews(request, dealer_id):
     # if dealer id has been provided
     if(dealer_id):
@@ -86,9 +89,9 @@ def get_dealer_reviews(request, dealer_id):
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
 
+
 @csrf_exempt
 def registration(request):
-   
     data = json.loads(request.body)
     username = data['userName']
     password = data['password']
