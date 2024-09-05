@@ -103,7 +103,7 @@ def registration(request):
         # Check if user already exists
         User.objects.get(username=username)
         username_exist = True
-    except Exception as ex:
+    except Exception:
         # If not, simply log this is a new user
         logger.debug("{} is new user".format(username))
 
@@ -121,7 +121,7 @@ def registration(request):
         login(request, user)
         data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)
-    else :
+    else:
         data = {"userName": username, "error": "Already Registered"}
         return JsonResponse(data)
 
@@ -145,12 +145,17 @@ def get_cars(request):
 
 
 def add_review(request):
-    if(request.user.is_anonymous is False):
+    if (request.user.is_anonymous is False):
         data = json.loads(request.body)
         try:
             return JsonResponse({"status": 200})
-        except Exception as ex:
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
+        except Exception:
+            return JsonResponse(
+                {
+                    "status": 401,
+                    "message": "Error in posting review"
+                }
+            )
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
 
