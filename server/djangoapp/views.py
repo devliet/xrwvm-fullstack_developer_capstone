@@ -12,7 +12,7 @@ from .populate import initiate
 from .models import CarMake, CarModel
 
 
-from .restapis import get_request, analyze_review_sentiments, post_review
+from .restapis import get_request, analyze_review_sentiments
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -58,17 +58,17 @@ def logout_request(request):
 
 
 def get_dealerships(request, state="All"):
-    if(state == "All"):
+    if (state == "All"):
         endpoint = "/fetchDealers"
     else:
         endpoint = "/fetchDealers/"+state
     logging.debug("Log message goes here.")
     dealerships = get_request(endpoint)
-    return JsonResponse({"status": 200, "dealers":dealerships})
+    return JsonResponse({"status": 200, "dealers": dealerships})
 
 
 def get_dealer_details(request, dealer_id):
-    if(dealer_id):
+    if (dealer_id):
         endpoint = "/fetchDealer/"+str(dealer_id)
         dealership = get_request(endpoint)
         return JsonResponse({"status": 200, "dealer": dealership})
@@ -78,7 +78,7 @@ def get_dealer_details(request, dealer_id):
 
 def get_dealer_reviews(request, dealer_id):
     # if dealer id has been provided
-    if(dealer_id):
+    if (dealer_id):
         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
         reviews = get_request(endpoint)
         for review_detail in reviews:
@@ -103,7 +103,7 @@ def registration(request):
         # Check if user already exists
         User.objects.get(username=username)
         username_exist = True
-    except:
+    except Exception as ex:
         # If not, simply log this is a new user
         logger.debug("{} is new user".format(username))
 
@@ -124,17 +124,25 @@ def registration(request):
     else :
         data = {"userName": username, "error": "Already Registered"}
         return JsonResponse(data)
+
+
 @csrf_exempt
 def get_cars(request):
     count = CarMake.objects.filter().count()
     print(count)
-    if(count == 0):
+    if (count == 0):
         initiate()
     car_models = CarModel.objects.select_related('car_make')
     cars = []
     for car_model in car_models:
-        cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
+        cars.append(
+            {
+                "CarModel": car_model.name,
+                "CarMake": car_model.car_make.name
+            }
+        )
     return JsonResponse({"CarModels": cars})
+
 
 def add_review(request):
     if(request.user.is_anonymous is False):
