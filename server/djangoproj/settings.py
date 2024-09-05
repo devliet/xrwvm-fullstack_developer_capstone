@@ -32,17 +32,18 @@ ALLOWED_HOSTS = [
     'localhost',
      "".join(
          [
-            'https://etiennedevl1-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.',
-             'proxy.cognitiveclass.ai'
+            'https://etiennedevl1-8000',
+            '.theiadockernext-0-labs-prod-theiak8s-4-tor01.',
+            'proxy.cognitiveclass.ai'
          ]
      )
 ]
 CSRF_TRUSTED_ORIGINS = [
     "".join(
         [
-        'https://etiennedevl1-8000',
-        '.theiadockernext-0-labs-prod-theiak8s-4-tor01.',
-        'proxy.cognitiveclass.ai'
+            'https://etiennedevl1-8000',
+            '.theiadockernext-0-labs-prod-theiak8s-4-tor01.',
+            'proxy.cognitiveclass.ai'
         ]
     )
 ]
@@ -113,7 +114,11 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "".join([
+                    'django.contrib.auth.password_validation.',
+                    'UserAttributeSimilarityValidator'
+                ]
+               )
     },
     {
         'NAME':
