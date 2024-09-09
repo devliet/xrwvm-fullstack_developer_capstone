@@ -31,6 +31,7 @@ jobs:
 
     - name: Run Linter
       run: |
+        esversion="6"
         pwd
         # This command finds all Python files recursively and runs flake8 on them
         find . -name "*.py" -exec flake8 {} +
